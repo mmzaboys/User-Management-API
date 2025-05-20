@@ -34,4 +34,4 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name:  Push Docker Image
-        run: docker tag flask-api ${{ secrets.DOCKER_USERNAME }}/flask-api:latest && docker push ${{ secrets.DOCKER_USERNAME }}/flask-api:latest
+        run: docker tag flask-api ${{ secrets.DOCKER_HUB_USERNAME }}/flask-api:latest docker push ${{ secrets.DOCKER_HUB_USERNAME }}/flask-api:latest
