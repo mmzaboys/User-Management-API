@@ -31,7 +31,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME_2 }}
-          password: ${{ secrets.DOCKER_HUB_PASSWORD}}
+          password: ${{ secrets.DCH_PASS}}
 
       - name: Tag and Push Docker Image
         run: |
