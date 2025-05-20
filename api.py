@@ -3,9 +3,13 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 from flask_restful import Resource ,Api ,reqparse,fields,marshal_with,abort
+from dotenv import load_dotenv
+import os
+# Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URI']  
 api=Api(app)
 db=SQLAlchemy(app)
 
@@ -48,16 +52,6 @@ class User(Resource):
             abort(404)
         return user
         
-    @marshal_with(userFields)
-    def patch (self , id ):
-        args = user_args.parse_args()
-        user =UserModel.query.filter_by(id=id).first()
-        if not user:
-            abort(404)
-        user.name = args["name"]
-        user.email= args["email"]    
-        return user
-    
     @marshal_with(userFields)
     def patch (self , id ):
         args = user_args.parse_args()
