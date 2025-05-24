@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-flask-api-deployment
+  labels:
+    app: my-flask-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-flask-api
+  template:
+    metadata:
+      labels:
+        app: my-flask-api
+    spec:
+      containers:
+        - name: my-flask-api
+          image: mahmoud00thedev/flask-api:latest  
+          ports:
+            - containerPort: 5000
+          env:
+            - name: DATABASE_URI
+              valueFrom:
+                secretKeyRef:
+                  name: db-uri-secret
+                  key: DATABASE_URI
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-api-service
+spec:
+  type: NodePort
+  selector:
+    app: my-flask-api
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+      nodePort: 30007  
