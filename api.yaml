@@ -15,6 +15,7 @@ spec:
       containers:
       - name: flask-container
         image: mahmoud00thedev/flask-api:latest
+        imagePullPolicy: Never
         ports:
         - containerPort: 5000
         volumeMounts:
